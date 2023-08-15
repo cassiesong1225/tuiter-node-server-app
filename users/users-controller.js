@@ -1,25 +1,14 @@
 import * as usersDao from "./users-dao.js";
 
 const UserController = (app) => {
-    app.get("/api/users", findUsers);
+    app.get("/api/users", findAllUsers);
     app.get("/api/users/:id", findUserById);
     app.post("/api/users", createUser);
     app.put("/api/users/:id", updateUser);
     app.delete("/api/users/:id", deleteUser);
 };
 
-const createUser = async (req, res) => {
-    const newUser = await usersDao.createUser(req.body);
-    res.json(newUser);
-};
-
-const findUserById = async (req, res) => {
-    const id = req.params.id;
-    const user = await usersDao.findUserById(id);
-    res.json(user);
-};
-
-const findUsers = async (req, res) => {
+const findAllUsers = async (req, res) => {
     const username = req.query.username;
     const password = req.query.password;
     if (username && password) {
@@ -42,6 +31,21 @@ const findUsers = async (req, res) => {
     }
 };
 
+
+const createUser = async (req, res) => {
+    const newUser = await usersDao.createUser(req.body);
+    res.json(newUser);
+};
+
+
+const findUserById = async (req, res) => {
+    const id = req.params.id;
+    const user = await usersDao.findUserById(id);
+    res.json(user);
+};
+
+
+
 const updateUser = async (req, res) => {
     const id = req.params.id;
     const status = await usersDao.updateUser(id, req.body);
@@ -55,5 +59,6 @@ const deleteUser = async (req, res) => {
     const status = await usersDao.deleteUser(id);
     res.json(status);
 };
+
 
 export default UserController;
