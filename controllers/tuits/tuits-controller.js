@@ -7,6 +7,17 @@ const findTuits = async (req, res) => {
 
 const createTuit = async (req, res) => {
     const newTuit = req.body;
+    newTuit.username = 'NASA';
+    newTuit.handle = "@Nasa",
+        newTuit.likes = 0;
+    newTuit.dislikes = 0;
+    newTuit.liked = false;
+    newTuit.disliked = false;
+    newTuit.time = "1 min",
+        newTuit.image = 'nasa.png';
+    newTuit.title = "Untitled";
+    newTuit.retuits = 0;
+    newTuit.replies = 0;
     const insertedTuit = await tuitsDao.createTuit(newTuit);
     res.json(insertedTuit);
 };
